@@ -1,7 +1,9 @@
 import os
-os.system('cls' if os.name ==  'nt' else 'clear')
+def clear():
+    os.system('cls' if os.name ==  'nt' else 'clear')
 
 def titleScreen():
+    clear()
     print(
     '''
     ___________________________________________________________________________________________________________________
@@ -23,6 +25,6 @@ def titleScreen():
     print('')
     print(' -Type Anything to Continue- ')
     input('> ')
-    os.system('cls' if os.name ==  'nt' else 'clear')
+    clear()
 
 titleScreen()
