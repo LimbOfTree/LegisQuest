@@ -14,6 +14,7 @@ How to Play:
 You are some guy attempting to get the legis. In order to do this, you must type some things that will let you interact with your environment.
 You can type some things to make you move around on the map. For example, "go north", "north" and "n" all make you move north.
 You can type "get <insert object here>" to try and get an object. There are a lot of things you can't get, however.
+You can type "inventory" or "inv" in order to check your inventory.
 You can type "quit" to quit the game.
 There are a few other commands you will figure out as you play.
 There are also a few easter eggs you can try to find.

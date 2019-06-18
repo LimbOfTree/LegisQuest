@@ -54,7 +54,7 @@ def firstScreen():
     typeAnything()
     print('Legis Quest')
     print('')
-    print('For years on end you had been searching for it. The artifat to end all artifacts. The most desired, most valued object in the universe. You were convinced you would be the one to finally obtain it. To finally grasp...')
+    print('For years on end you had been searching for it. The artifact to end all artifacts. The most desired, most valued object in the universe. You were convinced you would be the one to finally obtain it. To finally grasp...')
     typeAnything()
     print('Legis Quest')
     print('')
@@ -92,11 +92,11 @@ def printAreaDescription():
     global actionText
     global guardAlive
     if x == 0 and y == 0:
-        print('You stand in the middle of a large, empty field. There is nothing of intrest around you.')
+        print('You stand in the middle of a large, empty field. There is nothing of interest around you.')
         print('')
         print('The field extends for quite a while to both the EAST and the WEST, but there appear to be exits to the NORTH, the SOUTH and the LEGIS')
     elif x == 0 and y == -1:
-        print('You walk are in a small cavern to the south of the field. You see that it somehow manages to contain an enormous pit with lava and very sharp looking spikes at the bottom. You would most likley not like to fall down it.')
+        print('You are in a small cavern to the south of the field. You see that it somehow manages to contain an enormous pit with lava and very sharp looking spikes at the bottom. You would most likely not like to fall down it.')
         print('')
         print('You wonder how the lava manages to exist with the surrounding enviroment intact.')
     elif x == 0 and y == 1 and 'sword' not in inventory:
@@ -104,7 +104,7 @@ def printAreaDescription():
     elif x == 0 and y == 1 and 'sword' in inventory:
         print('You are standing next to a rock in the middle of the field.')
     elif x == 80 and y == 80 and guardAlive == True:
-        print('You are at the legis. It sits magestically on a pedestal and illumiates the room. Unfortunately for you, the legis is being guarded by some random dood.')
+        print('You are at the legis. It sits majestically on a pedestal and illumiates the room. Unfortunately for you, the legis is being guarded by some random dood.')
         print('You will probably have to fight him if you want the legis.')
         print('')
         print('Obvious exits are NOT LEGIS.')
@@ -134,7 +134,7 @@ def gameLoop():
                 y = 1
                 actionText = ''
             elif x == 0 and y == 1:
-                actionText = 'You attept to go north, but an enormous tree grows out of nowhere and block your path.'
+                actionText = 'You attempt to go north, but an enormous tree grows out of nowhere and blocks your path.'
             elif x == 0 and y == -1:
                 y = 0
                 actionText = ''
@@ -155,7 +155,7 @@ def gameLoop():
                 break
         elif userInput == 'west' or userInput == 'w' or userInput == 'go west':
             if x == 0 and y == 0:
-                actionText = 'You attempt to go west, but are teleported to back to the center for no apparent reason. \n \nYou mentaly curse the programer of this game for being too lazy to program an accessible area to the west.'
+                actionText = 'You attempt to go west, but are teleported to back to the center for no apparent reason. \n \nYou mentally curse the programer of this game for being too lazy to program an accessible area to the west.'
             elif x == 0 and y == 1:
                 print('You attempt to go west when a goat comes out of nowhere and kicks you in the face. You fall to the ground and bleed to death.')
                 print('')
@@ -166,7 +166,7 @@ def gameLoop():
                 actionText = 'You can\'t do that.'
         elif userInput == 'east' or userInput == 'e' or userInput == 'go east':
             if x == 0 and y == 0:
-                actionText = 'You attempt to go east, but are teleported to back to the center for no apparent reason. \n \nYou mentaly curse the programer of this game for being too lazy to program an accessible area to the east.'
+                actionText = 'You attempt to go east, but are teleported to back to the center for no apparent reason. \n \nYou mentally curse the programer of this game for being too lazy to program an accessible area to the east.'
             elif x == 0 and y == 1:
                 actionText = 'You go to the east, but upon realizing that the area to the east of you hadn\'t actually been programed into the game, you return to the sword area.'
             elif x == 0 and y == -1:
