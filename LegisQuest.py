@@ -101,7 +101,6 @@ def save():
     saveFile = open('Saves/Save.json', 'w')
     saveFile.write(saveX + '\n' + saveY + '\n' + saveGuardAlive + '\n' + saveInventory)
     saveFile.close()
-    saveDeath()
 
 def load():
     global x
@@ -137,7 +136,7 @@ def saveDeath():
 def loadDeath():
     global deathList
     global deathCount
-    if os.path.isfile('Saves/Save.json'):
+    if os.path.isfile('Saves/Deaths.json'):
         deathFile = open('Saves/Deaths.json', 'r')
         deathList = deathFile.readline()
         deathCount = deathFile.readline()
