@@ -7,9 +7,12 @@ def clear():
 x = 0
 y = 0
 inventory = []
+guardAlive = True
 userInput = 0
 actionText = ''
-guardAlive = True
+deathList = []
+deathNumber = -1
+deathCount = 0
 
 def typeAnything():
     print('')
@@ -95,9 +98,10 @@ def save():
     saveY = json.dumps(y)
     saveGuardAlive = json.dumps(guardAlive)
     saveInventory = json.dumps(inventory)
-    saveFile = open('Save/Save.json', 'w')
+    saveFile = open('Saves/Save.json', 'w')
     saveFile.write(saveX + '\n' + saveY + '\n' + saveGuardAlive + '\n' + saveInventory)
     saveFile.close()
+    saveDeath()
 
 def load():
     global x
@@ -105,9 +109,8 @@ def load():
     global guardAlive
     global inventory
     global actionText
-    succ = os.path.isfile('Save/Save.json')
-    if succ == True:
-        saveFile = open('Save/Save.json', 'r')
+    if os.path.isfile('Saves/Save.json'):
+        saveFile = open('Saves/Save.json', 'r')
         x = saveFile.readline()
         y = saveFile.readline()
         guardAlive = saveFile.readline()
@@ -118,9 +121,43 @@ def load():
         guardAlive = json.loads(guardAlive)
         inventory = json.loads(inventory)
         actionText = 'Game loaded.'
+        loadDeath()
     else:
         actionText = 'You don\'t have a save file!'
-    
+
+def saveDeath():
+    global deathList
+    global deathCount
+    saveDeathList = json.dumps(deathList)
+    saveDeathCount = json.dumps(deathCount)
+    deathFile = open('Saves/Deaths.json', 'w')
+    deathFile.write(saveDeathList + '\n' + saveDeathCount)
+    deathFile.close()
+
+def loadDeath():
+    global deathList
+    global deathCount
+    if os.path.isfile('Saves/Save.json'):
+        deathFile = open('Saves/Deaths.json', 'r')
+        deathList = deathFile.readline()
+        deathCount = deathFile.readline()
+        deathFile.close()
+        deathList = json.loads(deathList)
+        deathCount = json.loads(deathCount)
+
+def gameOver():
+    global deathList
+    global deathNumber
+    global deathCount
+    if deathNumber not in deathList:
+        deathList.append(deathNumber)
+        deathCount = deathCount + 1
+    saveDeath()
+    print('')
+    print('You are dead.')
+    print('Game Over.')
+    print('')
+
 def printAreaDescription():
     global x
     global y
@@ -159,6 +196,7 @@ def gameLoop():
     global inventory
     global actionText
     global guardAlive
+    global deathNumber
     while True:
         clear()
         print('Legis Quest')
@@ -182,21 +220,19 @@ def gameLoop():
                 y = 0
                 actionText = ''
             elif x == 0 and y == -1:
+                deathNumber = 0
                 print('Really? Ok.')
                 print('')
                 print('You walk to the south, fall of the edge, into the pit, and die an excruciatingly painful death.')
-                print('')
-                print('You are dead.')
-                print('Game Over.')
+                gameOver()
                 break
         elif userInput == 'west' or userInput == 'w' or userInput == 'go west':
             if x == 0 and y == 0:
                 actionText = 'You attempt to go west, but are teleported to back to the center for no apparent reason. \n \nYou mentally curse the programer of this game for being too lazy to program an accessible area to the west.'
             elif x == 0 and y == 1:
+                deathNumber = 1
                 print('You attempt to go west when a goat comes out of nowhere and kicks you in the face. You fall to the ground and bleed to death.')
-                print('')
-                print('You are dead.')
-                print('Game Over.')
+                gameOver()
                 break
             elif x == 0 and y == -1:
                 actionText = 'You can\'t do that.'
@@ -220,6 +256,7 @@ def gameLoop():
                 y = 0
                 actionText = ''
             if x == 80 and y == 80 and guardAlive == False:
+                deathNumber = 2
                 print('Seriously?')
                 time.sleep(1)
                 print('Seriously?')
@@ -230,9 +267,7 @@ def gameLoop():
                 print('')
                 print('')
                 print('The programer of this game personaly comes into the game and kills you.')
-                print('')
-                print('You are dead.')
-                print('Game Over.')
+                gameOver()
                 break
             else:
                 actionText = 'That is the exact opposite of where you are trying to go.'
@@ -247,11 +282,10 @@ def gameLoop():
                 actionText = 'You walk up the guard and stab him the the chest. He falls over onto the ground.'
                 guardAlive = False
             elif x == 80 and y == 80 and 'sword' not in inventory:
+                deathNumber = 3
                 print('You walk up the guard and attempt to stab him with your fist.')
                 print('He pulls out an enormous axe and decapitates you.')
-                print('')
-                print('You are dead.')
-                print('Game Over.')
+                gameOver()
                 break
             else:
                 actionText = 'There is nobody to attack here.'
@@ -277,17 +311,38 @@ def gameLoop():
                 typeAnything()
                 print('Legis Quest')
                 printHeader()
-                print('You have finnaly obtained the legis!')
+                print('You have finally obtained the legis!')
                 print('')
                 print('')
                 print('You win!')
-                break
-            elif x == 80 and y == 80 and guardAlive == True :
-                print('You walk up the legis and try to grap it.')
-                print('The gut guarding the legis pulls out an enormous axe and decapitates you.')
                 print('')
-                print('You are dead.')
-                print('Game Over.')
+                print('')
+                if deathCount == 6:
+                    print('You found all possible death messages!')
+                    print('')
+                    print('Congratulations!')
+                elif deathCount == 0:
+                    print('You never encountered a death message!')
+                    print('')
+                    print('...')
+                    time.sleep(3)
+                    print('')
+                    print('')
+                    print('You pathetic little excuse for a human being.')
+                    time.sleep(2)
+                    print('')
+                    print('')
+                    print('')
+                    print('Get out of my sight.')
+                else:
+                    print('You found ' + str(deathCount) + ' out of 6 unique death messages!')
+                print('')
+                break
+            elif x == 80 and y == 80 and guardAlive == True:
+                deathNumber = 4
+                print('You walk up the legis and try to grasp it.')
+                print('The guy guarding the legis pulls out an enormous axe and decapitates you.')
+                gameOver()
                 break
             else:
                 actionText = 'That is exactly what you are trying to do.'
@@ -305,12 +360,11 @@ def gameLoop():
             load()
         elif userInput == 'jump' or userInput == 'fall' or userInput == 'jump down' or userInput == 'fall down' or userInput == 'jump down it' or userInput == 'fall down it':
             if x == 0 and y == -1:
+                deathNumber = 0
                 print('Really? Ok.')
                 print('')
                 print('You fall of the edge, into the pit, and die an excruciatingly painful death.')
-                print('')
-                print('You are dead.')
-                print('Game Over.')
+                gameOver()
                 break
             else:
                 actionText = 'Off of what?'
@@ -318,15 +372,14 @@ def gameLoop():
             clear()
             break
         elif userInput == 'die' or userInput == 'suicide' or userInput == 'commit suicide' or userInput == 'commit die' or userInput == 'kill self' or userInput == 'kill myself':
+            deathNumber = 5
             print('...')
             time.sleep(2)
             print('')
             print('Alright then!')
             time.sleep(0.5)
             print('You will your heart to stop beating.')
-            print('')
-            print('You are dead.')
-            print('Game Over.')
+            gameOver()
             break
         elif userInput == 'get ye flask':
             actionText = 'You\'re not a dunegonman!'
@@ -335,4 +388,5 @@ def gameLoop():
 
 titleScreen()
 firstScreen()
+loadDeath()
 gameLoop()
