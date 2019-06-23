@@ -30,6 +30,3 @@ Some Other Notes:
 Legis is pronounced Lee-Gis.
 Please run this in fullscreen.
 This is a very short game. Please don't expect a lot.
-
-
-Current Issues(That I Am Aware Of):
