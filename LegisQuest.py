@@ -1,4 +1,5 @@
 import os
+import json
 import time
 def clear():
     os.system('cls' if os.name ==  'nt' else 'clear')
@@ -85,6 +86,41 @@ def printHeader():
         print(actionText)
         print('')
 
+def save():
+    global x
+    global y
+    global guardAlive
+    global inventory
+    saveX = json.dumps(x)
+    saveY = json.dumps(y)
+    saveGuardAlive = json.dumps(guardAlive)
+    saveInventory = json.dumps(inventory)
+    saveFile = open('Save/Save.json', 'w')
+    saveFile.write(saveX + '\n' + saveY + '\n' + saveGuardAlive + '\n' + saveInventory)
+    saveFile.close()
+
+def load():
+    global x
+    global y
+    global guardAlive
+    global inventory
+    global actionText
+    succ = os.path.isfile('Save/Save.json')
+    if succ == True:
+        saveFile = open('Save/Save.json', 'r')
+        x = saveFile.readline()
+        y = saveFile.readline()
+        guardAlive = saveFile.readline()
+        inventory = saveFile.readline()
+        saveFile.close()
+        x = json.loads(x)
+        y = json.loads(y)
+        guardAlive = json.loads(guardAlive)
+        inventory = json.loads(inventory)
+        actionText = 'Game loaded.'
+    else:
+        actionText = 'You don\'t have a save file!'
+    
 def printAreaDescription():
     global x
     global y
@@ -255,6 +291,18 @@ def gameLoop():
                 break
             else:
                 actionText = 'That is exactly what you are trying to do.'
+        elif userInput == 'inventory' or userInput == 'inv':
+            if inventory == []:
+                actionText = 'You have no items.'
+            else:
+                actionText = 'You have:\n'
+                if 'sword' in inventory:
+                    actionText = actionText + 'A Sword\n'
+        elif userInput == 'save':
+            save()
+            actionText = 'Game saved.'
+        elif userInput == 'load':
+            load()
         elif userInput == 'jump' or userInput == 'fall' or userInput == 'jump down' or userInput == 'fall down' or userInput == 'jump down it' or userInput == 'fall down it':
             if x == 0 and y == -1:
                 print('Really? Ok.')
@@ -282,13 +330,6 @@ def gameLoop():
             break
         elif userInput == 'get ye flask':
             actionText = 'You\'re not a dunegonman!'
-        elif userInput == 'inventory' or userInput == 'inv':
-            if inventory == []:
-                actionText = 'You have no items.'
-            else:
-                actionText = 'You have:\n'
-                if 'sword' in inventory:
-                    actionText = actionText + 'A Sword\n'
         else:
             actionText = 'I have no idea what just asked me to do.'
 

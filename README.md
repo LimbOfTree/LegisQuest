@@ -15,6 +15,12 @@ You are some guy attempting to get the legis. In order to do this, you must type
 You can type some things to make you move around on the map. For example, "go north", "north" and "n" all make you move north.
 You can type "get <insert object here>" to try and get an object. There are a lot of things you can't get, however.
 You can type "inventory" or "inv" in order to check your inventory.
+You can type "save" to save the game.
+You can type "load" to load the game.
+
+-IMPORTANT-
+If you save the game, quit it, and then relaunch it, it will look like you lost all your progress. You did not. You just have to type "load" to continue from where you left off.
+
 You can type "quit" to quit the game.
 There are a few other commands you will figure out as you play.
 There are also a few easter eggs you can try to find.
@@ -24,3 +30,6 @@ Some Other Notes:
 Legis is pronounced Lee-Gis.
 Please run this in fullscreen.
 This is a very short game. Please don't expect a lot.
+
+
+Current Issues(That I Am Aware Of):
