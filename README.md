@@ -29,5 +29,5 @@ That's about all.
 Some Other Notes:
 Legis is pronounced Lee-Gis.
 Please run this in fullscreen.
-If you want to erase your save data for whaetver reason, just delete all the files in the "Saves" folder. DO NOT DELETE THE FOLDER ITSELF.
+If you want to erase your save data for whatever reason, just delete all the files in the "Saves" folder. DO NOT DELETE THE FOLDER ITSELF.
 This is a very short game. Please don't expect a lot.

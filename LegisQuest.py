@@ -133,6 +133,8 @@ def save():
     saveY = json.dumps(y)
     saveGuardAlive = json.dumps(guardAlive)
     saveInventory = json.dumps(inventory)
+    if os.path.isdir('./Saves') == False:
+        os.mkdir('./Saves')
     saveFile = open('Saves/Save.json', 'w')
     saveFile.write(saveX + '\n' + saveY + '\n' + saveGuardAlive + '\n' + saveInventory)
     saveFile.close()
@@ -142,6 +144,8 @@ def saveDeath():
     global deathCount
     saveDeathList = json.dumps(deathList)
     saveDeathCount = json.dumps(deathCount)
+    if os.path.isdir('./Saves') == False:
+        os.mkdir('./Saves')
     deathFile = open('Saves/Deaths.json', 'w')
     deathFile.write(saveDeathList + '\n' + saveDeathCount)
     deathFile.close()
@@ -172,7 +176,7 @@ def typeAnything():
     input('> ')
     clear()
 
-#Area descriptions and game loop.
+#Defining the bigger functions.
 def printAreaDescription():
     global x
     global y
@@ -202,7 +206,7 @@ def printAreaDescription():
         print('')
         print('Obvious exits are NOT LEGIS.')
     else:
-        print('You\'re not supposed to be here. Stop hacking.')
+        print('You\'re not supposed to be here. Stop cheating.')
 
 def gameLoop():
     global userInput
